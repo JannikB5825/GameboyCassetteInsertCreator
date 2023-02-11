@@ -27,7 +27,7 @@ spineImagePath = ""
 backcoverImagePath = ""
 
 modelSelection = "Gameboy"
-publisherSelection = ""
+publisherSelection = "Nintendo"
 backgroundColor = (128, 128, 128)
 
 publisherOptions = {
@@ -122,6 +122,27 @@ def createPreview():
     coverIm.paste(banner, (0, 0), banner)
     spineIm.paste(spineBanner)
 
+    # publisher Logo
+    logo = Image.open(publisherOptions[publisherSelection])
+    if logo.size[1]*2.5 > logo.size[0]:
+        baseheight = 40
+        hPercent = (baseheight/float(logo.size[1]))
+        wSize = int((float(logo.size[0])*float(hPercent)))
+        logo = logo.resize((wSize, baseheight))
+        xPlacement = (127-wSize)//2
+        yPlacement = 980
+    else:
+        basewidth = 100
+        wPercent = (basewidth/float(logo.size[0]))
+        hSize = int((float(logo.size[1])*float(wPercent)))
+        logo = logo.resize((basewidth, hSize))
+        xPlacement = 13
+        yPlacement = int((61 - hSize) / 2 + 969)
+    try:
+        spineIm.paste(logo, (xPlacement, yPlacement), logo)
+    except:
+        spineIm.paste(logo, (xPlacement, yPlacement))
+
     images = [backIm, spineIm, coverIm]
     widths, heights = zip(*(i.size for i in images))
     total_width = sum(widths)
@@ -142,8 +163,12 @@ def createPreview():
 
 def publisherSelectionCallback(choice):
     global publisherSelection
-    publisherSelection = choice
-    createPreview()
+    if choice == "Select File":
+        publisherSelection = choice
+        select_file("publisher")
+    else:
+        publisherSelection = choice
+        createPreview()
 
 
 def modelSelectionCallback(choice):
@@ -177,6 +202,8 @@ def select_file(position):
             spineImagePath = filename
         case "backcoverImagePath":
             backcoverImagePath = filename
+        case "publisher":
+            publisherOptions["Select File"] = filename
 
     createPreview()
 
@@ -235,7 +262,7 @@ platform = customtkinter.CTkOptionMenu(root, values=[
 platform.place(anchor="center", x=80, y=228)
 
 platform = customtkinter.CTkOptionMenu(root, values=list(
-    publisherOptions.keys()), command=modelSelectionCallback)
+    publisherOptions.keys()), command=publisherSelectionCallback)
 platform.place(anchor="center", x=230, y=228)
 
 colorSelector = customtkinter.CTkButton(
