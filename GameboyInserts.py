@@ -43,12 +43,14 @@ backStrech = tk.StringVar()
 
 
 def createPreview():
+    """Create a preview of the generated Insert"""
     global previewImage, previewImageTK, previewImageLabel, coverImagePath, spineImagePath, backcoverImagePath, insert
 
     backIm = Image.new('RGB', (253, 1030), color=backgroundColor)
     spineIm = Image.new('RGB', (127, 1030), color=backgroundColor)
     coverIm = Image.new('RGB', (650, 1030), color=backgroundColor)
 
+    # handles resizing and streching of images
     if coverImagePath != "":
         if coverStrech.get() == "on":
             coverImage = Image.open(coverImagePath).resize((650, 837))
@@ -102,6 +104,7 @@ def createPreview():
     coverIm.paste(bottom, (0, 969))
     spineIm.paste(bottomSpline, (0, 969))
 
+    # Sets the Banner and Spline configs for the dropdown
     match modelSelection:
         case "Gameboy":
             banner = Image.open(
@@ -231,6 +234,7 @@ def exportPDF():
 
 
 def on_closing():
+    """Deletes the temporary file on close."""
     if messagebox.askokcancel("Quit", "Do you want to quit?"):
         os.remove("tempInsert.jpg")
         root.destroy()
@@ -275,7 +279,6 @@ pdfExport.place(anchor="center", x=80, y=342)
 
 # creates the preview Image that will be shown at starup
 createPreview()
-
 
 # start the customTkinter GUI
 root.protocol("WM_DELETE_WINDOW", on_closing)
