@@ -7,10 +7,18 @@ from fpdf import FPDF
 from PIL import Image, ImageTk
 from tkinter import filedialog, colorchooser, messagebox
 
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
-
-dir = os.getcwd()
 
 root = customtkinter.CTk()
 root.geometry("700x400")
@@ -31,9 +39,9 @@ publisherSelection = "Nintendo"
 backgroundColor = (128, 128, 128)
 
 publisherOptions = {
-    "Nintendo": dir + r"\templateImages\Nintendo.png",
-    "THQ": dir + r"\templateImages\THQ.png",
-    "Konami": dir + r"\templateImages\Konami.png",
+    "Nintendo": resource_path("Nintendo.png"),
+    "THQ": resource_path("THQ.png"),
+    "Konami": resource_path("Konami.png"),
     "Select File": ""
 }
 
@@ -99,7 +107,7 @@ def createPreview():
         except:
             backIm.paste(backImage, (0, 0))
 
-    bottom = Image.open(dir + r"\templateImages\Down.png").resize((650, 61))
+    bottom = Image.open(resource_path("Down.png")).resize((650, 61))
     bottomSpline = bottom.crop((0, 0, 127, 61))
     coverIm.paste(bottom, (0, 969))
     spineIm.paste(bottomSpline, (0, 969))
@@ -108,19 +116,19 @@ def createPreview():
     match modelSelection:
         case "Gameboy":
             banner = Image.open(
-                dir + r"\templateImages\GameboyBanner.png").resize((650, 132))
+                resource_path("GameboyBanner.png")).resize((650, 132))
             spineBanner = Image.open(
-                dir + r"\templateImages\GameboySpline.png").resize((127, 260))
+                resource_path("GameboySpline.png")).resize((127, 260))
         case "Gameboy Color":
             banner = Image.open(
-                dir + r"\templateImages\GameboyColorBanner.png").resize((650, 132))
+                resource_path("GameboyColorBanner.png")).resize((650, 132))
             spineBanner = Image.open(
-                dir + r"\templateImages\GameboyColorSpline.png").resize((127, 260))
+                resource_path("GameboyColorSpline.png")).resize((127, 260))
         case "Gameboy Advance":
             banner = Image.open(
-                dir + r"\templateImages\GameboyAdvanceBanner.png").resize((650, 153))
+                resource_path("GameboyAdvanceBanner.png")).resize((650, 153))
             spineBanner = Image.open(
-                dir + r"\templateImages\GameboyAdvanceSpline.png").resize((127, 260))
+                resource_path("GameboyAdvanceSpline.png")).resize((127, 260))
 
     coverIm.paste(banner, (0, 0), banner)
     spineIm.paste(spineBanner)
