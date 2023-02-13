@@ -39,9 +39,9 @@ publisherSelection = "Nintendo"
 backgroundColor = (128, 128, 128)
 
 publisherOptions = {
-    "Nintendo": resource_path("Nintendo.png"),
-    "THQ": resource_path("THQ.png"),
-    "Konami": resource_path("Konami.png"),
+    "Nintendo": resource_path(r"templateImages\Nintendo.png"),
+    "THQ": resource_path(r"templateImages\THQ.png"),
+    "Konami": resource_path(r"templateImages\Konami.png"),
     "Select File": ""
 }
 
@@ -107,7 +107,7 @@ def createPreview():
         except:
             backIm.paste(backImage, (0, 0))
 
-    bottom = Image.open(resource_path("Down.png")).resize((650, 61))
+    bottom = Image.open(resource_path(r"templateImages\Down.png")).resize((650, 61))
     bottomSpline = bottom.crop((0, 0, 127, 61))
     coverIm.paste(bottom, (0, 969))
     spineIm.paste(bottomSpline, (0, 969))
@@ -116,19 +116,19 @@ def createPreview():
     match modelSelection:
         case "Gameboy":
             banner = Image.open(
-                resource_path("GameboyBanner.png")).resize((650, 132))
+                resource_path(r"templateImages\GameboyBanner.png")).resize((650, 132))
             spineBanner = Image.open(
-                resource_path("GameboySpline.png")).resize((127, 260))
+                resource_path(r"templateImages\GameboySpline.png")).resize((127, 260))
         case "Gameboy Color":
             banner = Image.open(
-                resource_path("GameboyColorBanner.png")).resize((650, 132))
+                resource_path(r"templateImages\GameboyColorBanner.png")).resize((650, 132))
             spineBanner = Image.open(
-                resource_path("GameboyColorSpline.png")).resize((127, 260))
+                resource_path(r"templateImages\GameboyColorSpline.png")).resize((127, 260))
         case "Gameboy Advance":
             banner = Image.open(
-                resource_path("GameboyAdvanceBanner.png")).resize((650, 153))
+                resource_path(r"templateImages\GameboyAdvanceBanner.png")).resize((650, 153))
             spineBanner = Image.open(
-                resource_path("GameboyAdvanceSpline.png")).resize((127, 260))
+                resource_path(r"templateImages\GameboyAdvanceSpline.png")).resize((127, 260))
 
     coverIm.paste(banner, (0, 0), banner)
     spineIm.paste(spineBanner)
