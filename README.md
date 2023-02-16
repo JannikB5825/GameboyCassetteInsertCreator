@@ -11,4 +11,8 @@ The programm can insert images onto the Template. All images that are imported h
 
 ### Dimensions
 
-The program automaticly makes the images fit to the smallest dimension of the section. As Example: If a cover with a higher resulution than the template is, is inserted the program automaticly scales the image down to fit the width of the cover without changing its proportions.
+The program automaticly makes the images fit to the smallest dimension of the section. As Example: If a cover with a higher resulution than the template is, is inserted the program automaticly scales the image down to fit the width of the cover without changing its proportions. Following are the different dimensions of the template parts if you want to design your cover images yourself:
+
+- Cover: 650x837
+- Spine: 127x749
+- Backcover: 253x1030
