@@ -9,6 +9,7 @@ from tkinter import filedialog, colorchooser, messagebox
 
 
 def resource_path(relative_path):
+    """gets the paths for the images included with pyinstaller"""
     try:
         base_path = sys._MEIPASS
     except Exception:
@@ -22,6 +23,7 @@ customtkinter.set_default_color_theme("dark-blue")
 
 root = customtkinter.CTk()
 root.geometry("700x400")
+root.title("Gameboy Insert Creator")
 
 insert = Image.new("RGB", (1030, 1030))
 insert.save("tempInsert.jpg")
@@ -54,6 +56,7 @@ def createPreview():
     """Create a preview of the generated Insert"""
     global previewImage, previewImageTK, previewImageLabel, coverImagePath, spineImagePath, backcoverImagePath, insert
 
+    # creates seperate blank images for the cover, spine and backcover
     backIm = Image.new("RGB", (253, 1030), color=backgroundColor)
     spineIm = Image.new("RGB", (127, 1030), color=backgroundColor)
     coverIm = Image.new("RGB", (650, 1030), color=backgroundColor)
@@ -62,42 +65,42 @@ def createPreview():
     if coverImagePath != "":
         if coverStrech.get() == "on":
             coverImage = Image.open(coverImagePath).resize((650, 837))
-            hPlacement = 132
+            yPlacement = 132
         else:
             basewidth = 650
             coverImage = Image.open(coverImagePath)
             wPercent = basewidth / float(coverImage.size[0])
             hSize = int((float(coverImage.size[1]) * float(wPercent)))
             coverImage = coverImage.resize((basewidth, hSize))
-            hPlacement = int((837 - hSize) / 2 + 132)
+            yPlacement = int((837 - hSize) / 2 + 132)
         try:
-            coverIm.paste(coverImage, (0, hPlacement), coverImage)
+            coverIm.paste(coverImage, (0, yPlacement), coverImage)
         except:
-            coverIm.paste(coverImage, (0, hPlacement))
+            coverIm.paste(coverImage, (0, yPlacement))
     if spineImagePath != "":
         if spineStrech.get() == "on":
             spineImage = Image.open(spineImagePath).rotate(
-                270, Image.Resampling.NEAREST
+                270, Image.Resampling.NEAREST, expand=1
             )
             spineImage = spineImage.resize((127, 749))
-            hPlacement = 260
+            yPlacement = 260
         else:
             basewidth = 127
             spineImage = Image.open(spineImagePath).rotate(
-                270, Image.Resampling.NEAREST
+                270, Image.Resampling.NEAREST, expand=1
             )
             wPercent = basewidth / float(spineImage.size[0])
             hSize = int((float(spineImage.size[1]) * float(wPercent)))
             spineImage = spineImage.resize((basewidth, hSize))
-            hPlacement = int((749 - hSize) / 2 + 260)
+            yPlacement = int((749 - hSize) / 2 + 260)
         try:
-            spineIm.paste(spineImage, (0, hPlacement), spineImage)
+            spineIm.paste(spineImage, (0, yPlacement), spineImage)
         except:
-            spineIm.paste(spineImage, (0, hPlacement))
+            spineIm.paste(spineImage, (0, yPlacement))
     if backcoverImagePath != "":
         if backStrech.get() == "on":
             backImage = Image.open(backcoverImagePath).resize((253, 1030))
-            hPlacement = 0
+            yPlacement = 0
         else:
             basewidth = 253
             backImage = Image.open(backcoverImagePath)
@@ -116,9 +119,9 @@ def createPreview():
 
     # Sets the Banner and Spline configs for the dropdown
     fileName = modelSelection.replace(" ", "")
-    banner = Image.open(
-        resource_path(f"templateImages\\{fileName}Banner.png")
-    ).resize((650, 132))
+    banner = Image.open(resource_path(f"templateImages\\{fileName}Banner.png")).resize(
+        (650, 132)
+    )
     spineBanner = Image.open(
         resource_path(f"templateImages\\{fileName}Spline.png")
     ).resize((127, 260))
@@ -236,6 +239,7 @@ def exportPDF():
 
 
 def exportPng():
+    """Saves lable shown in the Preview as printable PNG."""
     global insert
 
     filename = filedialog.asksaveasfilename(
@@ -253,6 +257,7 @@ def on_closing():
         root.destroy()
 
 
+# customtkinter button initializing and placement
 coverButton = customtkinter.CTkButton(
     root, text="Cover", command=lambda: select_file("coverImagePath")
 )
