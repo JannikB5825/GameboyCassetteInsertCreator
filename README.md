@@ -16,3 +16,11 @@ The program automaticly makes the images fit to the smallest dimension of the se
 - Cover: 650x837
 - Spine: 127x749
 - Backcover: 253x1030
+
+### Presets
+
+The program comes preloaded with the the diffrent style of Gameboy System Box: Gameboy, Gameboy Color, Gameboy Advance. When changing these presets with the dropdown menu the banner on the cover and the spine will change to the system selected. Also the publisher on the bottom of the spine can be changed with dropdown menu next to it. By Selecting "Select File" a costom file can be used and fill be fitted to the needed dimensions.
+
+### Output
+
+The program can output either PNGs or PDFs. The PDFs are formattet for A4 paper and formated ready for printing, which means that the insert is inserted into the PDF at the right dimension.
