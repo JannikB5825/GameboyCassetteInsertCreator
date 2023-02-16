@@ -1,5 +1,5 @@
-<h1 style="text-align: center">Gameboy Cassette Insert Creator</h1>
-<p style="text-align: center">Creates an J-Card inserts for Gameboy Games</p>
+<h1 align="center">Gameboy Cassette Insert Creator</h1>
+<p align="center">Creates an J-Card inserts for Gameboy Games</p>
 
 ![Demo](/docs/demo.gif)
 
