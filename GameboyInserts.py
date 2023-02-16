@@ -115,31 +115,13 @@ def createPreview():
     spineIm.paste(bottomSpline, (0, 969))
 
     # Sets the Banner and Spline configs for the dropdown
-    banner = Image.new("RGB", (650, 132))
-    spineBanner = Image.new("RGB", (127, 260))
-
-    match modelSelection:
-        case "Gameboy":
-            banner = Image.open(
-                resource_path(r"templateImages\GameboyBanner.png")
-            ).resize((650, 132))
-            spineBanner = Image.open(
-                resource_path(r"templateImages\GameboySpline.png")
-            ).resize((127, 260))
-        case "Gameboy Color":
-            banner = Image.open(
-                resource_path(r"templateImages\GameboyColorBanner.png")
-            ).resize((650, 132))
-            spineBanner = Image.open(
-                resource_path(r"templateImages\GameboyColorSpline.png")
-            ).resize((127, 260))
-        case "Gameboy Advance":
-            banner = Image.open(
-                resource_path(r"templateImages\GameboyAdvanceBanner.png")
-            ).resize((650, 153))
-            spineBanner = Image.open(
-                resource_path(r"templateImages\GameboyAdvanceSpline.png")
-            ).resize((127, 260))
+    fileName = modelSelection.replace(" ", "")
+    banner = Image.open(
+        resource_path(f"templateImages\\{fileName}Banner.png")
+    ).resize((650, 132))
+    spineBanner = Image.open(
+        resource_path(f"templateImages\\{fileName}Spline.png")
+    ).resize((127, 260))
 
     coverIm.paste(banner, (0, 0), banner)
     spineIm.paste(spineBanner)
