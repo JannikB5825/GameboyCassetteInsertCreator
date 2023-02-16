@@ -64,15 +64,15 @@ def createPreview():
     # handles resizing and streching of images
     if coverImagePath != "":
         if coverStrech.get() == "on":
-            coverImage = Image.open(coverImagePath).resize((650, 837))
-            yPlacement = 132
+            coverImage = Image.open(coverImagePath).resize((650, 794))
+            yPlacement = 175
         else:
             basewidth = 650
             coverImage = Image.open(coverImagePath)
             wPercent = basewidth / float(coverImage.size[0])
             hSize = int((float(coverImage.size[1]) * float(wPercent)))
             coverImage = coverImage.resize((basewidth, hSize))
-            yPlacement = int((837 - hSize) / 2 + 132)
+            yPlacement = int((794 - hSize) / 2 + 175)
         try:
             coverIm.paste(coverImage, (0, yPlacement), coverImage)
         except:
@@ -112,7 +112,8 @@ def createPreview():
         except:
             backIm.paste(backImage, (0, 0))
 
-    bottom = Image.open(resource_path(r"templateImages\Down.png")).resize((650, 61))
+    bottom = Image.open(resource_path(
+        r"templateImages\Down.png")).resize((650, 61))
     bottomSpline = bottom.crop((0, 0, 127, 61))
     coverIm.paste(bottom, (0, 969))
     spineIm.paste(bottomSpline, (0, 969))
@@ -120,7 +121,7 @@ def createPreview():
     # Sets the Banner and Spline configs for the dropdown
     fileName = modelSelection.replace(" ", "")
     banner = Image.open(resource_path(f"templateImages\\{fileName}Banner.png")).resize(
-        (650, 132)
+        (650, 175)
     )
     spineBanner = Image.open(
         resource_path(f"templateImages\\{fileName}Spline.png")
