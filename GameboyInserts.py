@@ -50,6 +50,7 @@ publisherOptions = {
 coverStrech = tk.StringVar()
 spineStrech = tk.StringVar()
 backStrech = tk.StringVar()
+colorTriangleVar = tk.StringVar()
 
 
 def createPreview():
@@ -64,15 +65,15 @@ def createPreview():
     # handles resizing and streching of images
     if coverImagePath != "":
         if coverStrech.get() == "on":
-            coverImage = Image.open(coverImagePath).resize((650, 794))
-            yPlacement = 175
+            coverImage = Image.open(coverImagePath).resize((650, 817))
+            yPlacement = 152
         else:
             basewidth = 650
             coverImage = Image.open(coverImagePath)
             wPercent = basewidth / float(coverImage.size[0])
             hSize = int((float(coverImage.size[1]) * float(wPercent)))
             coverImage = coverImage.resize((basewidth, hSize))
-            yPlacement = int((794 - hSize) / 2 + 175)
+            yPlacement = int((817 - hSize) / 2 + 152)
         try:
             coverIm.paste(coverImage, (0, yPlacement), coverImage)
         except:
@@ -111,6 +112,11 @@ def createPreview():
             backIm.paste(backImage, (0, 0), backImage)
         except:
             backIm.paste(backImage, (0, 0))
+
+    if colorTriangleVar.get() == "on":
+        gbColorTriangle = Image.open(resource_path(
+            r"templateImages\GameboyColorCorner.png")).resize((216, 193))
+        coverIm.paste(gbColorTriangle, (434, 776), gbColorTriangle)
 
     bottom = Image.open(resource_path(
         r"templateImages\Down.png")).resize((650, 61))
@@ -317,6 +323,16 @@ colorSelector = customtkinter.CTkButton(
     root, text="Background Color", command=choose_color
 )
 colorSelector.place(anchor="center", x=80, y=285)
+
+colorTriangle = customtkinter.CTkCheckBox(
+    master=root,
+    text="GBColor only triangle",
+    variable=colorTriangleVar,
+    onvalue="on",
+    offvalue="off",
+    command=createPreview,
+)
+colorTriangle.place(anchor="center", x=230, y=285)
 
 pdfExport = customtkinter.CTkButton(root, text="Export PDF", command=exportPDF)
 pdfExport.place(anchor="center", x=80, y=342)
